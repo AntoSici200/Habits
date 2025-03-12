@@ -3,699 +3,513 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Mie Citazioni</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>📅 Tracker Abitudini Annuale</title>
     <style>
         body {
-            font-family: 'Georgia', serif;
-            background-color: #f8f1e9;
-            margin: 0;
-            padding: 30px;
-            color: #4a3f35;
-            transition: background-color 0.3s, color 0.3s; /* Transizione per il tema scuro */
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            transition: background-color 0.5s, color 0.5s;
+            animation: fadeInPage 0.8s ease-in-out;
         }
-        body.dark-theme {
-            background-color: #1a1a1a; /* Sfondo scuro */
-            color: #e0e0e0; /* Testo chiaro */
+        body.dark-mode {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
         }
         h1 {
-            text-align: center;
-            color: #8b5e34;
-            font-size: 32px;
-            margin-bottom: 15px;
-            font-weight: normal;
-            letter-spacing: 1px;
-            transition: color 0.3s; /* Transizione per il tema scuro */
+            color: #28a745;
+            transition: color 0.3s;
         }
-        .dark-theme h1 {
-            color: #c9a66b; /* Colore del titolo nel tema scuro (es. un beige dorato) */
+        body.dark-mode h1 {
+            color: #66bb6a;
         }
-        h2 {
-            color: #8b5e34;
-            font-size: 20px;
-            margin-bottom: 15px;
-            font-weight: normal;
-            transition: color 0.3s; /* Transizione per il tema scuro */
-        }
-        .dark-theme h2 {
-            color: #c9a66b; /* Colore dei sottotitoli nel tema scuro */
-        }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            background-color: #fffcf7;
-            padding: 20px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.3s, box-shadow 0.3s; /* Transizione per il tema scuro */
+            overflow: hidden;
+            transition: background-color 0.5s, box-shadow 0.5s;
         }
-        .dark-theme .container {
-            background-color: #2a2a2a; /* Sfondo scuro per il contenitore */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombra più scura */
+        body.dark-mode table {
+            background-color: #2e2e2e;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
         }
-        .search-section {
-            margin-bottom: 25px;
-            position: relative;
-            display: flex; /* Abilita flexbox */
-            align-items: center; /* Centra verticalmente gli elementi */
-        }
-
-        .search-section input[type="text"] {
-            width: 100%;
-            padding: 12px 40px 12px 40px; /* Aumenta il padding a destra */
-            border: 1px solid #d9c2a7;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%238b5e34" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat 12px center;
-            background-size: 18px;
-            transition: border-color 0.3s, background-color 0.3s, color 0.3s; /* Transizione per il tema scuro */
-            color: #4a3f35; /* Colore del testo in tema chiaro */
-        }
-        .dark-theme .search-section input[type="text"] {
-            border-color: #555; /* Bordo più scuro nel tema scuro */
-            background-color: #333; /* Sfondo scuro per input nel tema scuro */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23e0e0e0" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>'); /* Icona bianca nel tema scuro */
-            color: #e0e0e0; /* Colore del testo in tema scuro */
-        }
-
-        .search-section input[type="text"]:focus {
-            border-color: #c9a66b;
-            outline: none;
-        }
-        .dark-theme .search-section input[type="text"]:focus {
-            border-color: #c9a66b; /* Mantiene l'accento dorato anche nel tema scuro */
-        }
-
-        .clear-search-button {
-            position: absolute;
-            right: 12px;
-            background: none; /* Rimuovi lo sfondo */
-            border: none; /* Rimuovi il bordo */
-            font-size: 20px;
-            color: #8b5e34;
-            cursor: pointer;
-            opacity: 0.6;
-            padding: 0;
-            margin: 0;
-            outline: none; /* Rimuovi l'outline al focus */
-            box-shadow: none; /* Rimuovi l'ombra */
-            transition: color 0.3s; /* Transizione per il tema scuro */
-        }
-        .dark-theme .clear-search-button {
-            color: #e0e0e0; /* Colore chiaro per la X nel tema scuro */
-        }
-
-        .clear-search-button:hover {
-            opacity: 1; /* Aumenta l'opacità al passaggio del mouse */
-            color: #c9a66b; /* Accento dorato al hover */
-            background: none; /* Assicurati che non ci sia sfondo al passaggio del mouse */
-        }
-        .dark-theme .clear-search-button:hover {
-            color: #c9a66b; /* Accento dorato al hover anche nel tema scuro */
-        }
-
-        .clear-search-button:active {
-            color: #8b5e34; /* Mantieni lo stesso colore al clic */
-            background: none; /* Assicurati che non ci sia sfondo al clic */
-        }
-        .dark-theme .clear-search-button:active {
-            color: #e0e0e0; /* Mantieni il colore chiaro al clic nel tema scuro */
-        }
-
-        .input-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-            margin-bottom: 25px;
-            transition: background-color 0.3s, box-shadow 0.3s; /* Transizione per il tema scuro */
-        }
-        .dark-theme .input-section {
-            background-color: #2a2a2a; /* Sfondo scuro per la sezione input */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombra più scura */
-        }
-        .import-export-section {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-        }
-        input[type="text"] {
-            width: 100%;
+        th, td {
+            border: 1px solid #ddd;
             padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #d9c2a7;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-            background-color: #fffcf7;
-            transition: border-color 0.3s, background-color 0.3s, color 0.3s; /* Transizione per il tema scuro */
-            color: #4a3f35; /* Colore del testo in tema chiaro */
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s, border-color 0.5s;
         }
-        .dark-theme input[type="text"] {
-            border-color: #555; /* Bordo più scuro nel tema scuro */
-            background-color: #333; /* Sfondo scuro per input nel tema scuro */
-            color: #e0e0e0; /* Colore del testo in tema scuro */
+        body.dark-mode th, body.dark-mode td {
+            border-color: #777;
         }
-        input[type="text"]:focus {
-            border-color: #c9a66b;
-            outline: none;
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            color: #333;
         }
-        .dark-theme input[type="text"]:focus {
-            border-color: #c9a66b; /* Mantiene l'accento dorato anche nel tema scuro */
+        body.dark-mode th {
+            background-color: #3e3e3e;
+            color: #e0e0e0;
         }
-        button {
-            background-color: #c9a66b;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
+        td {
             cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s, transform 0.2s, color 0.3s; /* Transizione per il tema scuro */
+            transition: background-color 0.3s, transform 0.2s;
         }
-        .dark-theme button {
-            background-color: #c9a66b; /* Mantiene il colore dorato nel tema scuro */
-            color: #4a3f35; /* Cambia il colore del testo per contrasto nel tema scuro */
+        td:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.02);
         }
-        button:hover {
-            background-color: #b5894e;
-            transform: translateY(-1px);
+        body.dark-mode td:hover {
+            background-color: #4e4e4e;
         }
-        .dark-theme button:hover {
-            background-color: #b5894e; /* Mantiene l'effetto hover anche nel tema scuro */
+        td.completed {
+            background-color: #28a745;
+            color: white;
         }
-        .import-export-section input[type="file"] {
-            padding: 5px;
-            font-size: 14px;
-            background-color: #fffcf7; /* Sfondo chiaro per input file */
-            color: #4a3f35; /* Colore testo chiaro per input file */
-            border: 1px solid #d9c2a7; /* Bordo chiaro per input file */
-            border-radius: 8px; /* Bordi arrotondati per input file */
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Transizioni per input file */
+        body.dark-mode td.completed {
+            background-color: #66bb6a;
         }
-        .dark-theme .import-export-section input[type="file"] {
-            background-color: #333; /* Sfondo scuro per input file tema scuro */
-            color: #e0e0e0; /* Colore testo scuro per input file tema scuro */
-            border-color: #555; /* Bordo scuro per input file tema scuro */
+        /* Controls Container Styles */
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Spazio tra gli elementi */
+            margin-top: 20px;
         }
-        .quote {
+
+        #month-selector, #dark-mode-toggle, #add-habit {
+            flex: 1; /* Distribuisce lo spazio in modo uniforme */
+            max-width: 200px; /* Larghezza massima per evitare che si allunghino troppo */
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+
+        #add-habit, #dark-mode-toggle {
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+        }
+
+        #add-habit:hover, #dark-mode-toggle:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: none; /* Rimuovi la trasformazione */
+        }
+
+        #add-habit:active, #dark-mode-toggle:active {
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombra interna al clic */
+            transform: none; /* Assicura che non ci sia spostamento verticale */
+        }
+
+
+        body.dark-mode #add-habit, body.dark-mode #dark-mode-toggle {
+            background: linear-gradient(135deg, #66bb6a, #5cb85c);
+        }
+
+        body.dark-mode #add-habit:hover, body.dark-mode #dark-mode-toggle:hover {
+            background: linear-gradient(135deg, #5cb85c, #4cae4c);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            transform: none; /* Rimuovi la trasformazione */
+        }
+
+        body.dark-mode #add-habit:active, body.dark-mode #dark-mode-toggle:active {
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombra interna al clic */
+            transform: none; /* Assicura che non ci sia spostamento verticale */
+        }
+
+
+        #month-selector {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-            margin-bottom: 20px;
-            position: relative;
-            transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s; /* Transizione per il tema scuro */
+            border: 1px solid #ddd;
+            color: #333;
         }
-        .dark-theme .quote {
-            background-color: #333; /* Sfondo scuro per le citazioni */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombra più scura */
+
+        #month-selector:hover {
+            border-color: #28a745;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
         }
-        .quote:hover {
-            transform: translateY(-2px);
+
+        body.dark-mode #month-selector {
+            background-color: #444;
+            border-color: #777;
+            color: #f4f4f4;
         }
-        .quote-text {
-            font-style: italic;
-            font-size: 17px;
-            margin: 0 0 8px 0;
-            word-wrap: break-word;
-            max-width: 75%;
-            color: #4a3f35;
-            transition: color 0.3s; /* Transizione per il tema scuro */
+
+        body.dark-mode #month-selector:hover {
+            border-color: #66bb6a;
+            box-shadow: 0 0 8px rgba(102, 187, 106, 0.2);
         }
-        .dark-theme .quote-text {
-            color: #e0e0e0; /* Testo chiaro per le citazioni nel tema scuro */
+
+
+        .progress-cell {
+            font-weight: bold;
+            color: #28a745;
+            transition: color 0.3s;
         }
-        .quote-author {
-            font-size: 15px;
-            color: #7a6b5d;
-            margin: 0;
-            transition: color 0.3s; /* Transizione per il tema scuro */
+        body.dark-mode .progress-cell {
+            color: #66bb6a;
         }
-        .dark-theme .quote-author {
-            color: #a8a8a8; /* Colore più chiaro per l'autore nel tema scuro */
-        }
-        .quote-topic {
-            font-size: 13px;
-            color: #a89b8c;
-            margin: 5px 0 0 0;
-            transition: color 0.3s; /* Transizione per il tema scuro */
-        }
-        .dark-theme .quote-topic {
-            color: #888; /* Colore ancora più chiaro per l'argomento nel tema scuro */
-        }
-        .quote-buttons {
-            display: flex; /* Sempre visibili */
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            gap: 8px;
-        }
-        .quote-buttons button {
-            background-color: #d9534f;
-            padding: 6px 10px;
-            font-size: 13px;
-            transition: background-color 0.3s, color 0.3s; /* Transizione per il tema scuro */
-        }
-        .dark-theme .quote-buttons button {
-            color: #fff; /* Testo bianco per pulsanti nel tema scuro */
-        }
-        .quote-buttons button:first-child {
-            background-color: #f4d35e;
-            color: #4a3f35;
-        }
-        .quote-buttons button:hover {
-            background-color: #c9302c;
-        }
-        .quote-buttons button:first-child:hover {
-            background-color: #e0c34e;
-        }
-        .edit-form {
-            display: none;
-            margin-top: 15px;
-            position: relative; /* Necessario per il posizionamento assoluto del pulsante di chiusura */
-        }
-        .edit-form input[type="text"] {
-            margin: 5px 0;
-        }
-        .edit-form button {
-            margin-right: 10px;
-        }
-        .clear-all-section {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-        }
-        .clear-all-section button {
-            background-color: #d9534f;
+        #motivational-message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #28a745;
+            font-weight: bold;
+            transition: color 0.3s, opacity 0.5s, transform 0.5s;
+            opacity: 0;
+            transform: translateY(-20px);
             padding: 10px 20px;
-            font-size: 13px;
-            opacity: 0.8;
-            border-radius: 8px;
-            transition: background-color 0.3s; /* Transizione per il tema scuro */
+            background-color: rgba(40, 167, 69, 0.1);
+            border-radius: 10px;
+            display: inline-block;
         }
-        .clear-all-section button:hover {
-            background-color: #c9302c;
+        #motivational-message.show {
             opacity: 1;
-            transform: translateY(-1px);
+            transform: translateY(0);
+        }
+        body.dark-mode #motivational-message {
+            color: #66bb6a;
+            background-color: rgba(102, 187, 106, 0.1);
+        }
+        .delete-habit-btn {
+            background: none;
+            border: none;
+            color: red;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 5px 10px;
+            font-size: 1em;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 50%;
+        }
+        .delete-habit-btn:hover {
+            color: white;
+            background-color: red;
+        }
+        body.dark-mode .delete-habit-btn {
+            color: #ff7777;
+        }
+        body.dark-mode .delete-habit-btn:hover {
+            color: white;
+            background-color: #ff7777;
+        }
+        /* Stili per l'icona del tema scuro */
+        #dark-mode-toggle {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #ced4da;
+            display: flex; /* Ensure icon and text are aligned */
+            align-items: center;
+            justify-content: center;
+            gap: 8px; /* Space between icon and text */
+        }
+        #dark-mode-toggle:hover {
+            background-color: #e9ecef;
+            color: #343a40;
+        }
+        body.dark-mode #dark-mode-toggle {
+            background-color: #495057;
+            color: #f8f9fa;
+            border-color: #6c757d;
+        }
+        body.dark-mode #dark-mode-toggle:hover {
+            background-color: #6c757d;
+            color: #e9ecef;
+        }
+        /* Icona (puoi usare una libreria di icone o Unicode) - Esempio con Unicode */
+        #dark-mode-toggle::before {
+            content: "\263E"; /* Unicode per la luna crescente 🌙 - Tema scuro */
+            font-size: 18px;
+        }
+        body.dark-mode #dark-mode-toggle::before {
+            content: "\2600"; /* Unicode per il sole ☀️ - Tema chiaro */
         }
 
-        /* Stili per il tasto tema scuro (aggiunti qui) */
-        #themeToggle {
-            position: fixed; /* Fissa il tasto in una posizione */
-            top: 20px; /* Distanza dal bordo superiore */
-            right: 20px; /* Distanza dal bordo destro */
-            background: none; /* Rimuovi lo sfondo */
-            border: none; /* Rimuovi il bordo */
-            font-size: 24px; /* Dimensione dell'icona */
-            color: #8b5e34; /* Colore dell'icona tema chiaro */
-            cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-            z-index: 1000; /* Assicura che sia sopra altri elementi */
-            transition: color 0.3s ease, transform 0.3s ease; /* Aggiungi transizioni */
-        }
-        .dark-theme #themeToggle {
-            color: #e0e0e0; /* Colore dell'icona tema scuro (bianco/grigio chiaro) */
+        /* Icona per il pulsante "Aggiungi Abitudine" */
+        #add-habit::before {
+            content: "+";
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 8px; /* Add some space between icon and text */
         }
 
-        #themeToggle:hover {
-            color: #c9a66b; /* Cambia colore al passaggio del mouse tema chiaro */
-            transform: scale(1.1); /* Effetto di ingrandimento */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .dark-theme #themeToggle:hover {
-            color: #fff; /* Colore bianco al passaggio del mouse tema scuro */
+        #habits-table tbody tr {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        #themeToggle:active {
-            transform: scale(0.9); /* Effetto di riduzione al clic */
-        }
-
+        /* Mobile Responsiveness */
         @media (max-width: 600px) {
-            body {
-                padding: 15px;
+            .controls {
+                flex-direction: column; /* Disposizione verticale su schermi piccoli */
+                gap: 10px;
             }
-            .container {
-                padding: 15px;
+
+            #month-selector, #dark-mode-toggle, #add-habit {
+                width: 100%; /* Larghezza piena su schermi piccoli */
+                max-width: none; /* Rimuovi la larghezza massima su schermi piccoli */
             }
-            h1 {
-                font-size: 24px;
-            }
-            h2 {
-                font-size: 18px;
-            }
-            .quote-text {
-                font-size: 15px;
-            }
-            .quote-author {
-                font-size: 13px;
-            }
-            .quote-topic {
-                font-size: 12px;
-            }
-            .import-export-section {
-                flex-direction: column;
-                align-items: center;
-            }
-            .clear-all-section {
-                bottom: 15px;
-                right: 15px;
-            }
-            .quote-buttons {
-                position: relative; /* Cambia da absolute a relative */
-                top: auto;        /* Resetta top */
-                right: auto;      /* Resetta right */
-                margin-top: 10px; /* Aggiunge spazio sopra i pulsanti */
-                justify-content: flex-end; /* Allinea i pulsanti a destra */
-            }
-            .quote-text {
-                max-width: 100%; /* Assicura che il testo occupi tutta la larghezza disponibile */
-            }
-            .clear-search-button {
-                right: 8px;
-                font-size: 18px;
-            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
-    <button id="themeToggle" aria-label="Attiva/disattiva tema scuro">
-        <i class="fas fa-moon"></i> <!-- Icona luna per tema scuro -->
-    </button>
-
     <div class="container">
-        <h1>Le Mie Citazioni</h1>
-
-        <div class="search-section">
-            <input type="text" id="search" placeholder="Cerca per autore o argomento" onkeyup="searchQuotes()">
-            <button onclick="clearSearch()" class="clear-search-button">×</button>
+        <h1>📅 Tracker Abitudini Annuale</h1>
+        <div class="controls">
+            <select id="month-selector">
+                <option value="0">Gennaio</option>
+                <option value="1">Febbraio</option>
+                <option value="2">Marzo</option>
+                <option value="3">Aprile</option>
+                <option value="4">Maggio</option>
+                <option value="5">Giugno</option>
+                <option value="6">Luglio</option>
+                <option value="7">Agosto</option>
+                <option value="8">Settembre</option>
+                <option value="9">Ottobre</option>
+                <option value="10">Novembre</option>
+                <option value="11">Dicembre</option>
+            </select>
+            <button id="dark-mode-toggle">Tema Scuro</button>
+            <button id="add-habit">Aggiungi Abitudine</button>
         </div>
 
-        <div class="input-section">
-            <h2>Aggiungi Citazione</h2>
-            <input type="text" id="text" placeholder="Inserisci la citazione" maxlength="200">
-            <input type="text" id="author" placeholder="Autore" maxlength="50">
-            <input type="text" id="topic" placeholder="Argomento" maxlength="50">
-            <button onclick="addQuote()">Aggiungi</button>
-        </div>
+        <div id="motivational-message"></div>
 
-        <div class="import-export-section">
-            <button onclick="exportQuotes()" aria-label="Esporta citazioni">Esporta Citazioni</button>
-            <input type="file" id="importFile" accept=".json" onchange="importQuotes(event)" aria-label="Importa citazioni">
-        </div>
-
-        <div id="quotesList"></div>
-    </div>
-
-    <div class="clear-all-section">
-        <button onclick="clearAllQuotes()">Elimina Tutte</button>
+        <table id="habits-table">
+            <thead>
+                <tr>
+                    <th>Abitudine</th>
+                    <!-- I giorni verranno aggiunti dinamicamente in base al mese selezionato -->
+                    <th>Elimina</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Le abitudini verranno aggiunte qui dinamicamente -->
+            </tbody>
+        </table>
     </div>
 
     <script>
-        let quotes = JSON.parse(localStorage.getItem('quotes')) || [];
-        displayQuotes();
-
-        function showMessage(message, duration = 2000) {
-            const messageDiv = document.createElement('div');
-            messageDiv.style.position = 'fixed';
-            messageDiv.style.bottom = '20px';
-            messageDiv.style.left = '50%';
-            messageDiv.style.transform = 'translateX(-50%)';
-            messageDiv.style.backgroundColor = '#4CAF50';
-            messageDiv.style.color = 'white';
-            messageDiv.style.padding = '10px 20px';
-            messageDiv.style.borderRadius = '5px';
-            messageDiv.style.zIndex = '1000';
-            messageDiv.textContent = message;
-            document.body.appendChild(messageDiv);
-            setTimeout(() => {
-                document.body.removeChild(messageDiv);
-            }, duration);
-        }
-
-        function addQuote() {
-            const text = document.getElementById('text').value;
-            const author = document.getElementById('author').value;
-            const topic = document.getElementById('topic').value;
-            if (text && author && topic) {
-                const isDuplicate = quotes.some(q => q.text === text && q.author === author && q.topic === topic);
-                if (isDuplicate) {
-                    alert('Questa citazione esiste già!');
-                    return;
-                }
-                quotes.push({ text, author, topic });
-                saveQuotes();
-                displayQuotes();
-                clearInputs();
-                showMessage('Citazione aggiunta con successo!');
-            } else {
-                alert('Compila tutti i campi!');
-            }
-        }
-
-        function editQuote(index) {
-            const quoteDiv = document.getElementById(`quote-${index}`);
-            const displayContent = quoteDiv.querySelector('.display-content');
-            const editForm = quoteDiv.querySelector('.edit-form');
-            displayContent.style.display = 'none';
-            editForm.style.display = 'block';
-        }
-
-        function saveEdit(index) {
-            const quoteDiv = document.getElementById(`quote-${index}`);
-            const newText = quoteDiv.querySelector('.edit-text').value;
-            const newAuthor = quoteDiv.querySelector('.edit-author').value;
-            const newTopic = quoteDiv.querySelector('.edit-topic').value;
-            if (newText && newAuthor && newTopic) {
-                quotes[index] = { text: newText, author: newAuthor, topic: newTopic };
-                saveQuotes();
-                displayQuotes();
-                cancelEdit(index); // Chiude il form di modifica dopo il salvataggio
-                showMessage('Citazione modificata con successo!');
-            } else {
-                alert('Compila tutti i campi!');
-            }
-        }
-
-        function cancelEdit(index) {
-            const quoteDiv = document.getElementById(`quote-${index}`);
-            const displayContent = quoteDiv.querySelector('.display-content');
-            const editForm = quoteDiv.querySelector('.edit-form');
-            displayContent.style.display = 'block';
-            editForm.style.display = 'none';
-        }
-
-        function deleteQuote(index) {
-            if (confirm('Sei sicuro di voler eliminare questa citazione?')) {
-                quotes.splice(index, 1);
-                saveQuotes();
-                displayQuotes();
-            }
-        }
-
-        let searchTimeout;
-        function searchQuotes() {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                const searchTerm = document.getElementById('search').value.toLowerCase();
-                const filteredQuotes = quotes.filter(q =>
-                    q.author.toLowerCase().includes(searchTerm) ||
-                    q.topic.toLowerCase().includes(searchTerm)
-                );
-                displayQuotes(filteredQuotes);
-            }, 300); // Esegui la ricerca dopo 300ms dall'ultima digitazione
-        }
-
-        function clearSearch() {
-            const searchInput = document.getElementById('search');
-            searchInput.value = '';
-            searchQuotes();
-            updateClearButtonVisibility();
-        }
-
-        function updateClearButtonVisibility() {
-            const searchInput = document.getElementById('search');
-            const clearButton = document.querySelector('.clear-search-button');
-            if (searchInput.value.trim() === '') {
-                clearButton.style.display = 'none';
-            } else {
-                clearButton.style.display = 'block';
-            }
-        }
-
-        document.getElementById('search').addEventListener('input', function() {
-            updateClearButtonVisibility();
-        });
-
-        function displayQuotes(filteredQuotes = quotes) {
-            const list = document.getElementById('quotesList');
-            list.innerHTML = '';
-            filteredQuotes.forEach((quote, displayIndex) => {
-                const originalIndex = quotes.findIndex(q =>
-                    q.text === quote.text &&
-                    q.author === quote.author &&
-                    q.topic === quote.topic
-                );
-                const div = document.createElement('div');
-                div.className = 'quote';
-                div.id = `quote-${originalIndex}`;
-                div.innerHTML = `
-                    <div class="display-content">
-                        <p class="quote-text">"${quote.text}"</p>
-                        <p class="quote-author">— ${quote.author}</p>
-                        <p class="quote-topic">${quote.topic}</p>
-                        <div class="quote-buttons">
-                            <button onclick="editQuote(${originalIndex})">Modifica</button>
-                            <button onclick="deleteQuote(${originalIndex})">Elimina</button>
-                        </div>
-                    </div>
-                    <div class="edit-form">
-                        <input type="text" class="edit-text" value="${quote.text}">
-                        <input type="text" class="edit-author" value="${quote.author}">
-                        <input type="text" class="edit-topic" value="${quote.topic}">
-                        <button onclick="saveEdit(${originalIndex})">Salva</button>
-                        <button onclick="cancelEdit(${originalIndex})">Annulla</button>
-                    </div>
-                `;
-                list.appendChild(div);
-            });
-        }
-
-        function saveQuotes() {
-            localStorage.setItem('quotes', JSON.stringify(quotes));
-        }
-
-        function clearInputs() {
-            document.getElementById('text').value = '';
-            document.getElementById('author').value = '';
-            document.getElementById('topic').value = '';
-        }
-
-        async function exportQuotes() {
-            if (quotes.length === 0) {
-                alert('Nessuna citazione da esportare!');
-                return;
-            }
-
-            const dataStr = JSON.stringify(quotes, null, 2); // JSON formattato per leggibilità
-
-            try {
-                if (window.showSaveFilePicker) {
-                    // Usa File System Access API moderna
-                    const fileHandle = await window.showSaveFilePicker({
-                        suggestedName: 'citazioni.json',
-                        types: [{
-                            description: 'File JSON',
-                            accept: { 'application/json': ['.json'] },
-                        }],
-                    });
-                    const writable = await fileHandle.createWritable();
-                    await writable.write(dataStr);
-                    await writable.close();
-                    showMessage('Citazioni esportate con successo!');
-                } else {
-                    // Fallback: prompt per il nome e download diretto
-                    let fileName = prompt('Inserisci il nome del file (senza estensione):', 'citazioni');
-                    if (!fileName) {
-                        fileName = 'citazioni'; // Default se annullato o vuoto
-                    }
-                    fileName = fileName.replace(/[^a-zA-Z0-9_-]/g, '') + '.json'; // Pulizia nome
-                    const blob = new Blob([dataStr], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = fileName;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                    showMessage('Citazioni esportate con successo come ' + fileName + '!');
-                }
-            } catch (err) {
-                console.error('Errore durante l\'esportazione:', err);
-                alert('Errore durante l\'esportazione: ' + err.message);
-            }
-        }
-
-        function importQuotes(event) {
-            const file = event.target.files[0];
-            if (!file) {
-                alert('Nessun file selezionato!');
-                return;
-            }
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedQuotes = JSON.parse(e.target.result);
-                    if (Array.isArray(importedQuotes)) {
-                        quotes = importedQuotes;
-                        saveQuotes();
-                        displayQuotes();
-                        showMessage('Citazioni importate con successo!');
-                    } else {
-                        alert('Errore: Il file non contiene un elenco valido di citazioni.');
-                    }
-                } catch (error) {
-                    alert('Errore durante l\'importazione: ' + error.message);
-                }
-            };
-            reader.onerror = function() {
-                alert('Errore nella lettura del file!');
-            };
-            reader.readAsText(file);
-        }
-
-        function clearAllQuotes() {
-            if (confirm('Vuoi davvero eliminare tutte le citazioni? Questa azione non può essere annullata.')) {
-                if (confirm('Sei assolutamente sicuro? Tutte le citazioni verranno rimosse!')) {
-                    quotes = [];
-                    saveQuotes();
-                    displayQuotes();
-                    showMessage('Tutte le citazioni sono state eliminate.');
-                }
-            }
-        }
-
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-
-            // Alterna tra tema chiaro e scuro
-            body.classList.toggle('dark-theme');
-
-            // Cambia l'icona in base al tema attivo
-            if (body.classList.contains('dark-theme')) {
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; // Icona sole per tema chiaro
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>'; // Icona luna per tema scuro
-            }
-
-            // Salva la preferenza dell'utente nel localStorage
-            localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
-        }
-
-        // Verifica il tema salvato all'avvio
         document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme');
+            const habitsTableBody = document.querySelector('#habits-table tbody');
+            const addHabitButton = document.getElementById('add-habit');
+            const monthSelector = document.getElementById('month-selector');
+            const motivationalMessage = document.getElementById('motivational-message');
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
             const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
 
-            if (savedTheme === 'dark') {
-                body.classList.add('dark-theme');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>'; // Icona sole per tema chiaro
-            } else {
-                body.classList.remove('dark-theme');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>'; // Icona luna per tema scuro
+            // Array di messaggi motivazionali
+            const motivationalMessages = [
+                "Ogni piccolo passo conta! 💪",
+                "Continua così, stai facendo un ottimo lavoro! 🚀",
+                "Rendi oggi il tuo giorno migliore! 🌟",
+                "Non mollare, sei sulla strada giusta! 🔥",
+                "Ogni giorno è una nuova opportunità! 🌈",
+                "Sei più forte di quanto pensi! 💥",
+                "Il successo è la somma di piccoli sforzi! 🏆",
+                "Credici, ce la puoi fare! 🌟",
+                "Ogni giorno è un passo verso il tuo obiettivo! 🚶‍♂️",
+                "Non arrenderti, il meglio deve ancora venire! 🌅"
+            ];
+
+            // Struttura dati per le abitudini separate per mese
+            let monthlyHabits = {};
+
+            // Funzione per salvare le abitudini nel localStorage
+            function saveHabits() {
+                localStorage.setItem('monthlyHabits', JSON.stringify(monthlyHabits));
             }
 
-             // Aggiungi event listener al tasto tema scuro SOLO dopo che il DOM è caricato
-            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-        });
+            // Funzione per caricare le abitudini dal localStorage
+            function loadHabits() {
+                const storedHabits = localStorage.getItem('monthlyHabits');
+                if (storedHabits) {
+                    monthlyHabits = JSON.parse(storedHabits);
+                }
+            }
 
-        // Inizializza la visibilità del pulsante all'avvio
-        updateClearButtonVisibility();
+            // Funzione per salvare la preferenza del tema scuro nel localStorage
+            function saveThemePreference(isDarkMode) {
+                localStorage.setItem('darkMode', isDarkMode);
+            }
+
+            // Funzione per caricare la preferenza del tema scuro dal localStorage
+            function loadThemePreference() {
+                return localStorage.getItem('darkMode') === 'true';
+            }
+
+            // Funzione per attivare/disattivare il tema scuro
+            function toggleDarkMode() {
+                body.classList.toggle('dark-mode');
+                const isDarkMode = body.classList.contains('dark-mode');
+                saveThemePreference(isDarkMode);
+                updateDarkModeToggleText(isDarkMode); // Aggiorna il testo del pulsante
+            }
+
+            // Funzione per aggiornare il testo del pulsante tema scuro
+            function updateDarkModeToggleText(isDarkMode) {
+                darkModeToggle.textContent = isDarkMode ? 'Tema Chiaro' : 'Tema Scuro';
+            }
+
+
+            // Mostra un messaggio motivazionale casuale
+            function showMotivationalMessage() {
+                const randomIndex = Math.floor(Math.random() * motivationalMessages.length);
+                motivationalMessage.textContent = motivationalMessages[randomIndex];
+                motivationalMessage.classList.add('show');
+                setTimeout(() => {
+                    motivationalMessage.classList.remove('show');
+                }, 3000); // Rimuove la classe dopo 3 secondi
+            }
+
+            // Aggiorna la tabella in base al mese selezionato
+            function updateTableForMonth(month) {
+                const daysInMonth = new Date(new Date().getFullYear(), month + 1, 0).getDate();
+                const thead = document.querySelector('#habits-table thead tr');
+                thead.innerHTML = '<th>Abitudine</th>'; // Resetta l'intestazione
+
+                // Aggiungi i giorni del mese all'intestazione
+                for (let i = 1; i <= daysInMonth; i++) {
+                    thead.innerHTML += `<th>${i}</th>`;
+                }
+                thead.innerHTML += '<th>Progresso</th><th>Elimina</th>';
+
+                // Pulisci la tabella delle abitudini
+                habitsTableBody.innerHTML = '';
+
+                // Carica le abitudini per il mese selezionato
+                if (monthlyHabits[month]) {
+                    monthlyHabits[month].forEach(habit => {
+                        addHabitToTable(habit, month);
+                    });
+                }
+            }
+
+            // Cambia mese
+            monthSelector.addEventListener('change', () => {
+                const selectedMonth = parseInt(monthSelector.value);
+                updateTableForMonth(selectedMonth);
+            });
+
+            // Aggiungi una nuova abitudine
+            addHabitButton.addEventListener('click', () => {
+                const habitName = prompt("Inserisci il nome dell'abitudine:");
+                if (habitName) {
+                    const selectedMonth = parseInt(monthSelector.value);
+                    if (!monthlyHabits[selectedMonth]) {
+                        monthlyHabits[selectedMonth] = [];
+                    }
+                    monthlyHabits[selectedMonth].push({ name: habitName, days: [] });
+                    saveHabits();
+                    updateTableForMonth(selectedMonth); // Ricarica la tabella per mostrare la nuova abitudine
+                }
+            });
+
+            // Funzione per aggiungere una abitudine alla tabella
+            function addHabitToTable(habit, month) {
+                const habitRow = habitsTableBody.insertRow();
+                const nameCell = habitRow.insertCell();
+                nameCell.textContent = habit.name;
+
+                const daysInMonth = new Date(new Date().getFullYear(), month + 1, 0).getDate();
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayCell = habitRow.insertCell();
+                    dayCell.textContent = i;
+                    dayCell.classList.add('day');
+                    dayCell.dataset.day = i;
+                    dayCell.dataset.habitName = habit.name; // Salva il nome dell'abitudine per riferimento
+                    if (habit.days[i-1]) { // Se l'abitudine è completata per questo giorno
+                        dayCell.classList.add('completed');
+                    }
+                    dayCell.onclick = function() { toggleDay(this, month); };
+                }
+
+                const progressCell = habitRow.insertCell();
+                progressCell.classList.add('progress-cell');
+                updateProgress(habitRow, month);
+
+                // Cella per il pulsante Elimina
+                const deleteCell = habitRow.insertCell();
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'X';
+                deleteButton.className = 'delete-habit-btn';
+                deleteButton.onclick = function() { deleteHabit(habit.name, month, habitRow); }; // Passa habitRow
+                deleteCell.appendChild(deleteButton);
+            }
+
+
+            // Funzione per spuntare un giorno
+            window.toggleDay = function(dayCell, month) {
+                dayCell.classList.toggle('completed');
+                const dayIndex = parseInt(dayCell.dataset.day) - 1;
+                const habitName = dayCell.dataset.habitName;
+
+                // Trova l'abitudine corretta nell'array monthlyHabits
+                const habit = monthlyHabits[month].find(h => h.name === habitName);
+                if (habit) {
+                    if (!habit.days) habit.days = []; // Inizializza l'array dei giorni se non esiste
+                    habit.days[dayIndex] = dayCell.classList.contains('completed');
+                    saveHabits();
+                    updateProgress(dayCell.parentNode, month);
+                    showMotivationalMessage();
+                }
+            };
+
+            // Funzione per aggiornare il progresso
+            function updateProgress(habitRow, month) {
+                const daysInMonth = new Date(new Date().getFullYear(), month + 1, 0).getDate();
+                const completedDays = habitRow.querySelectorAll('td.day.completed').length;
+                const progressCell = habitRow.querySelector('.progress-cell');
+                progressCell.textContent = `${completedDays}/${daysInMonth}`;
+            }
+
+            // Funzione per eliminare un'abitudine
+            function deleteHabit(habitName, month, habitRow) {
+                monthlyHabits[month] = monthlyHabits[month].filter(habit => habit.name !== habitName);
+                saveHabits();
+                habitsTableBody.removeChild(habitRow); // Rimuove la riga dalla tabella
+                updateTableForMonth(month); // Alternatively, re-render the whole table. Choose one.
+            }
+
+            // Gestione del tema scuro
+            darkModeToggle.addEventListener('click', toggleDarkMode);
+
+            // Inizializzazione
+            loadHabits(); // Carica le abitudini salvate
+
+            // Carica la preferenza del tema e imposta il tema all'avvio
+            if (loadThemePreference()) {
+                body.classList.add('dark-mode');
+            }
+            updateDarkModeToggleText(body.classList.contains('dark-mode')); // Imposta il testo iniziale del pulsante
+
+            updateTableForMonth(parseInt(monthSelector.value));
+            showMotivationalMessage();
+        });
     </script>
 </body>
 </html>
